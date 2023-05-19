@@ -1,0 +1,176 @@
+Q.1. Movie should have multiple media(Video or Image):
+
+--Create table for movies
+
+CREATE TABLE Movies (
+  movie_id INT PRIMARY KEY,
+  title TEXT,
+  release_date DATE
+);
+
+-- Insert data into Movies table
+
+INSERT INTO Movies (movie_id, title, release_date)
+VALUES
+  (1, 'leo', '2022-01-01'),
+  (2, 'vaathi', '2022-02-15'),
+  (3, 'jailer', '2022-03-30'),
+  (4, 'javan', '2022-05-10'),
+
+
+-- Create table for media (video or image)
+
+CREATE TABLE Media (
+  media_id INT PRIMARY KEY,
+  movie_id INT,
+  media_type ENUM('Video', 'Image'),
+  media_url VARCHAR(255),
+  FOREIGN KEY (movie_id) REFERENCES Movies(movie_id)
+);
+
+
+-- Insert data into Media table
+
+INSERT INTO Media (media_id, movie_id, media_type, media_url)
+VALUES
+  (1, 1, 'Video', 'https://example.com/video1.mp4'),
+  (2, 1, 'Image', 'https://example.com/image1.jpg'),
+  (3, 2, 'Video', 'https://example.com/video2.mp4'),
+  (4, 3, 'Image', 'https://example.com/image2.jpg'),
+
+
+
+
+
+Q.2. Movie can belongs to multiple Genre:
+
+-- Create table for genres
+
+CREATE TABLE Genres (
+  genre_id INT PRIMARY KEY,
+  genre_name VARCHAR(255)
+);
+
+-- Insert data into Genres table
+
+INSERT INTO Genres (genre_id, genre_name)
+VALUES
+  (1, 'Action'),
+  (2, 'Comedy'),
+  (3, 'Drama'),
+  (4, 'Sci-Fi'),
+
+-- Create table to associate movies with genres
+
+CREATE TABLE MovieGenres (
+  movie_id INT,
+  genre_id INT,
+  PRIMARY KEY (movie_id, genre_id),
+  FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
+  FOREIGN KEY (genre_id) REFERENCES Genres(genre_id)
+);
+
+
+-- Insert data into MovieGenres table
+
+INSERT INTO MovieGenres (movie_id, genre_id)
+VALUES
+  (1, 1),
+  (1, 2),
+  (2, 3),
+  (3, 3),
+  (4, 4),
+
+
+
+
+Q.3. Movie can have multiple reviews and Review can belongs to a user
+
+-- Create table for reviews
+
+CREATE TABLE Reviews (
+  review_id INT PRIMARY KEY,
+  movie_id INT,
+  user_id INT,
+  review_text TEXT,
+  rating DECIMAL(3,2),
+  FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
+  FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+-- Insert data into Reviews table
+
+INSERT INTO Reviews (review_id, movie_id, user_id, review_text, rating)
+VALUES
+  (1, 1, 1, 'Great movie!', 4.5),
+  (2, 1, 2, 'Enjoyed it.', 3.8),
+  (3, 2, 3, 'Hilarious!', 4.2),
+  (4, 3, 4, 'Touching story.', 4.0),
+ 
+
+
+-- Create table for users
+
+CREATE TABLE Users (
+  user_id INT PRIMARY KEY,
+  username TEXT,
+  email TEXT
+);
+
+-- Insert data into Users table
+
+INSERT INTO Users (user_id, username, email)
+VALUES
+  (1, 'user1', 'user1@example.com'),
+  (2, 'user2', 'user2@example.com'),
+  (3, 'user3', 'user3@example.com'),
+  (4, 'user4', 'user4@example.com'),
+
+
+
+ Q.4. Artist can have multiple skills:
+
+-- Create table to associate artists with skills
+
+CREATE TABLE ArtistSkills (
+  artist_id INT PRIMARY KEY,
+  artist_name TEXT,
+  skill_id INT PRIMARY KEY,
+  skill_name TEXT
+);
+
+-- Insert data into Artistskills table
+
+INSERT INTO Artists (artist_id, artist_name,skill_id, skill_name)
+VALUES
+  (1, 'Artist A', 1, 'Acting'),
+  (2, 'Artist B', 2, 'Singing'),
+  (3, 'Artist C', 3, 'Dancing'),
+  (4, 'Artist D', 4, 'Writing'),
+  (5, 'Artist E', 5, 'Directing');
+
+
+
+
+Q.5. Artist can perform multiple role in a single film
+
+-- Create table for artist roles in movies
+
+CREATE TABLE ArtistRoles (
+  artist_id INT,
+  movie_id INT,
+  role_name TEXT,
+  FOREIGN KEY (artist_id) REFERENCES Artists(artist_id),
+  FOREIGN KEY (movie_id) REFERENCES Movies(movie_id)
+);
+
+-- Insert data into ArtistSkills table
+
+INSERT INTO ArtistSkills (artist_id, skill_id)
+VALUES
+  (1, 1),
+  (2, 2),
+  (2, 3),
+  (3, 3),
+  (4, 4),
+  (5, 5);
