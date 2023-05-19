@@ -128,6 +128,7 @@ VALUES
 
 
 
+
  Q.4. Artist can have multiple skills:
 
 -- Create table to associate artists with skills
@@ -147,8 +148,7 @@ VALUES
   (2, 'Artist B', 2, 'Singing'),
   (3, 'Artist C', 3, 'Dancing'),
   (4, 'Artist D', 4, 'Writing'),
-  (5, 'Artist E', 5, 'Directing');
-
+ 
 
 
 
@@ -173,4 +173,3 @@ VALUES
   (2, 3),
   (3, 3),
   (4, 4),
-  (5, 5);
